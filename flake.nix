@@ -1,15 +1,17 @@
 {
-  description = "All of my vim plugins, all at once";
+  description = "All of my vim plugins, everywhere, all at once";
 
-  inputs = {
-	nixpkgs.url = github:NixOS/nixpkgs;
-  };
+  inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs }: {
-
-    packages.x86_64-linux.vim = nixpkgs.legacyPackages.x86_64-linux.vim;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.vim;
-
-  };
+  outputs = { self, nixpkgs, flake-utils }: 
+    flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+          vim  = pkgs.vim_configurable.customize {
+            vimrcFile = ./vimrc;
+          }; in
+      {
+        packages.vim = vim;
+        packages.default = vim;
+      }
+    );
 }
