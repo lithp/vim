@@ -6,12 +6,16 @@
   outputs = { self, nixpkgs, flake-utils }: 
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
-          vim  = pkgs.vim_configurable.customize {
-            vimrcFile = ./vimrc;
-          }; in
-      {
-        packages.vim = vim;
-        packages.default = vim;
+          nvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
+            viAlias = true;
+            vimAlias = true;
+            configure = {
+              customRC = (builtins.readFile ./init.vim);
+            };
+          };
+      in {
+        packages.nvim = nvim;
+        packages.default = nvim;
       }
     );
 }
