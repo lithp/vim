@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "copilot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667968220,
+        "narHash": "sha256-8O+7tzQQR5+QHLgXpL+KOISaVn6iOpdfQAQfHtyI4uw=",
+        "owner": "github",
+        "repo": "copilot.vim",
+        "rev": "5a411d19ce7334ab10ba12516743fc25dad363fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "github",
+        "repo": "copilot.vim",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -31,6 +47,7 @@
     },
     "root": {
       "inputs": {
+        "copilot": "copilot",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }
