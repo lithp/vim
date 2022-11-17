@@ -14,14 +14,25 @@ noremap <CR> :noh<CR><CR>
 
 set mouse=a  " the mouse is usable in all modes
 
-" Some alternatives here:
-" http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
-" http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim
-" ColorColumn lets you highlight the background
-" Match lets you highlight just the chars which are over a given length
-set textwidth=90
-let &colorcolumn=join(range(&textwidth + 1,1000),",")
-highlight ColorColumn ctermbg=Black
+" START highlight textwidth
+
+  " - Some alternative implementations here:
+  "   - http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+  "   - http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim
+  " - ColorColumn lets you highlight the background
+  " - Match lets you highlight just the chars which are over a given length
+
+  highlight ColorColumn ctermbg=Black
+  function s:HighlightCorrectColumns()
+    let &colorcolumn=join(range(&textwidth + 1,1000),",")
+  endfunction
+  autocmd OptionSet textwidth call s:HighlightCorrectColumns()
+
+  " autocmd OptionSet does not run during startup so we call it manually
+  set textwidth=90
+  call s:HighlightCorrectColumns()
+
+" END highlight textwidth
 
 " Easier navigation between splits
 nnoremap <C-J> <C-W><C-J>
