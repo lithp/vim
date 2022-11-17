@@ -16,14 +16,16 @@
             viAlias = true;
             vimAlias = true;
             configure = {
-              customRC = (builtins.readFile ./init.vim);
+              customRC = nixpkgs.lib.concatStringsSep "\n" [
+	        (builtins.readFile ./init.vim)
+		"let g:copilot_node_command='${pkgs.nodejs-16_x}/bin/node'"
+	      ];
 	      packages.myVimPackage = with pkgs.vimPlugins; {
 	        start = [plug-copilot];
 	      };
             };
           };
       in {
-        packages.nodejs = pkgs.nodejs;
         packages.nvim = nvim;
         packages.default = nvim;
       }
