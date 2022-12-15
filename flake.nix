@@ -29,8 +29,15 @@
 			plug-copilot
 			plenary-nvim     # required by telescope
 			telescope-nvim   # Unite-replacement, quick navigation
-			nvim-treesitter
+			(nvim-treesitter.withPlugins (p: with p; [ 
+			  tree-sitter-nix
+			  tree-sitter-rust
+			  tree-sitter-python
+			]))
+			nvim-lspconfig
 			ale              # linter & auto-complete
+			coc-nvim
+			coc-rust-analyzer
 		];
 	      };
             };

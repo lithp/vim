@@ -23,6 +23,10 @@ nnoremap <C-H> <C-W><C-H>
 " jump between files
 nnoremap <space>f <cmd>Telescope find_files<cr>
 nnoremap <space>r <cmd>Telescope oldfiles<cr>
+nnoremap <space>o <cmd>Telescope treesitter<cr>
+nnoremap <space>l <cmd>Telescope builtin<cr>
+nnoremap <space>d <cmd>Telescope lsp_definitions<cr>
+nnoremap <space>rr <cmd>Telescope lsp_references<cr>
 
 " pathfinding through semantic space
 inoremap <M-Bslash> <plug>(copilot-suggest)
@@ -45,9 +49,21 @@ autocmd FileType gitcommit setlocal textwidth=72
 
 autocmd FileType rust set textwidth=100  " this is the rustfmt default
 
+lua require('lspconfig').rust_analyzer.setup{}
+
 let g:ale_linters = { 'rust': ['analyzer'] }
 let g:ale_fixers = { 'rust': ['rustfmt'] }
 let g:ale_sign_column_always = 1
+
+call coc#config('languageserver', {
+	\ 'rust': {
+	\   'command': 'rust-analyzer',
+	\   'filetypes': ['rust'],
+	\   'rootPatterns': ['Cargo.toml'],
+	\   'initializationOptions': {},
+	\   'settings': {}
+	\ }})
+call coc#config('rust-analyzer.serverPath', 'rust-analyzer')
 
 "
 " START highlight textwidth
