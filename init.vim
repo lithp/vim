@@ -14,6 +14,32 @@ noremap <CR> :noh<CR><CR>
 
 set mouse=a  " the mouse is usable in all modes
 
+" Easier navigation between splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+nnoremap <space>f <cmd>Telescope find_files<cr>
+nnoremap <space>r <cmd>Telescope oldfiles<cr>
+
+set cursorline  " highlight the line the cursor is on
+
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set autoindent
+autocmd FileType python set expandtab
+autocmd FileType python set softtabstop=4
+
+autocmd FileType c set noexpandtab
+autocmd FileType c set tabstop=4
+autocmd FileType c set shiftwidth=4
+
+autocmd FileType gitcommit setlocal spell
+autocmd FileType gitcommit setlocal textwidth=72
+
+autocmd FileType rust set textwidth=100  " this is the rustfmt default
+"
 " START highlight textwidth
 
   " - Some alternative implementations here:
@@ -33,24 +59,3 @@ set mouse=a  " the mouse is usable in all modes
   call s:HighlightCorrectColumns()
 
 " END highlight textwidth
-
-" Easier navigation between splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-set cursorline  " highlight the line the cursor is on
-
-autocmd FileType python set tabstop=4
-autocmd FileType python set shiftwidth=4
-autocmd FileType python set autoindent
-autocmd FileType python set expandtab
-autocmd FileType python set softtabstop=4
-
-autocmd FileType c set noexpandtab
-autocmd FileType c set tabstop=4
-autocmd FileType c set shiftwidth=4
-
-autocmd FileType gitcommit setlocal spell
-autocmd FileType gitcommit setlocal textwidth=72

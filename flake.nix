@@ -12,16 +12,24 @@
 	     version = "master";
 	     src = copilot;
 	  };
+	  # wrapNeovim defined in github:nixos/nixpkgs:pkgs/top-level/all-packages.nix
           nvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
-            viAlias = true;
+            viAlias = true;  # see pkgs/applications/editors/neovim/utils.nix
             vimAlias = true;
+	    extraMakeWrapperArgs = ''--prefix PATH : ${pkgs.lib.makeBinPath [
+	      pkgs.ripgrep pkgs.fd  # telescope
+	      pkgs.nodejs-16_x      # copilot
+	    ]}'' ;
             configure = {
-              customRC = nixpkgs.lib.concatStringsSep "\n" [
-	        (builtins.readFile ./init.vim)
-		"let g:copilot_node_command='${pkgs.nodejs-16_x}/bin/node'"
-	      ];
+              customRC = (builtins.readFile ./init.vim);
 	      packages.myVimPackage = with pkgs.vimPlugins; {
-	        start = [plug-copilot];
+	        # a big list of these is in pkgs/applications/editors/vim/plugins/
+	        start = [
+			plug-copilot
+			plenary-nvim # required by telescope
+			telescope-nvim
+			nvim-treesitter
+		];
 	      };
             };
           };
