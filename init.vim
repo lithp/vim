@@ -20,8 +20,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" jump between files
 nnoremap <space>f <cmd>Telescope find_files<cr>
 nnoremap <space>r <cmd>Telescope oldfiles<cr>
+
+" pathfinding through semantic space
+inoremap <M-Bslash> <plug>(copilot-suggest)
+inoremap <M-'> <plug>(ale_complete)
 
 set cursorline  " highlight the line the cursor is on
 
@@ -39,6 +44,11 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType gitcommit setlocal textwidth=72
 
 autocmd FileType rust set textwidth=100  " this is the rustfmt default
+
+let g:ale_linters = { 'rust': ['analyzer'] }
+let g:ale_fixers = { 'rust': ['rustfmt'] }
+let g:ale_sign_column_always = 1
+
 "
 " START highlight textwidth
 

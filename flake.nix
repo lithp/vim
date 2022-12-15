@@ -19,6 +19,7 @@
 	    extraMakeWrapperArgs = ''--prefix PATH : ${pkgs.lib.makeBinPath [
 	      pkgs.ripgrep pkgs.fd  # telescope
 	      pkgs.nodejs-16_x      # copilot
+	      pkgs.rust-analyzer    # use by ale
 	    ]}'' ;
             configure = {
               customRC = (builtins.readFile ./init.vim);
@@ -26,9 +27,10 @@
 	        # a big list of these is in pkgs/applications/editors/vim/plugins/
 	        start = [
 			plug-copilot
-			plenary-nvim # required by telescope
-			telescope-nvim
+			plenary-nvim     # required by telescope
+			telescope-nvim   # Unite-replacement, quick navigation
 			nvim-treesitter
+			ale              # linter & auto-complete
 		];
 	      };
             };
