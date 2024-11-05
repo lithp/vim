@@ -15,6 +15,9 @@ nix run github:lithp/vim
 # this command locks in a version and installs `vi`, `vim` and `nvim` aliases:
 nix profile install github:lithp/vim
 
+# To install from a local checkout of the repo:
+nix profile install .
+
 # after running the above these commands are useful:
 nix profile list
 nix profile upgrade SOME_SMALL_INTEGER
